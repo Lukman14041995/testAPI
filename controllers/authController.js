@@ -1,5 +1,5 @@
 const { check, validationResult } = require('express-validator');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const pool = require('../config/db').pool; // Pastikan path ke `db.js` benar
 
 // Fungsi untuk registrasi user
