@@ -1,11 +1,10 @@
 {
   "name": "testapi",
   "version": "1.0.0",
-  
   "main": "index.js",
   "scripts": {
-  "start": "node index.js"
-},
+    "start": "node index.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -19,7 +18,7 @@
     "pg": "^8.13.1"
   },
   "engines": {
-  "node": "18.x"
-},
-  "description": "Node.js API for test deployment",
+    "node": "18.x"
+  },
+  "description": "Node.js API for test deployment"
 }
