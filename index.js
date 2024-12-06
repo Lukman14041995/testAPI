@@ -1,5 +1,6 @@
 // Memuat variabel lingkungan dari file .env
 require('dotenv').config();
+console.log("Database URL:", process.env.DATABASE_URL);
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
