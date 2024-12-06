@@ -13,6 +13,10 @@ const balanceRoutes = require('./routes/balanceRoutes');
 const app = express();
 
 // Middleware
+
+app.get('/', (req, res) => {
+  res.send('API is running');
+});
 app.use(cors());
 app.use(bodyParser.json()); // Parsing body JSON
 app.use('/uploads', express.static('uploads')); // Melayani file statis dari folder uploads
