@@ -1,28 +1,23 @@
-const { Pool } = require('pg');
-require('dotenv').config();  // Pastikan untuk memuat .env file
+require('dotenv').config();  // Menambahkan baris ini untuk memuat file .env
 
-// Ambil string koneksi dari environment variable
+const { Pool } = require('pg');
+
+// Menggunakan DATABASE_URL dari environment variables
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,  // Menggunakan DATABASE_URL dari .env
+    connectionString: process.env.DATABASE_URL,  // Mengambil nilai dari DATABASE_URL
     ssl: {
-        rejectUnauthorized: false  // Untuk koneksi dengan SSL, seperti yang diberikan Railway
-    }
+        rejectUnauthorized: false,  // Agar koneksi SSL tetap diterima
+    },
 });
 
 // Fungsi untuk menguji koneksi
 const testConnection = async () => {
     try {
-        // Menjalankan query untuk memastikan koneksi berhasil
-        const res = await pool.query('SELECT NOW()');
+        const res = await pool.query('SELECT NOW()');  // Mengeksekusi query
         console.log('Koneksi berhasil! Waktu di server database:', res.rows[0].now);
     } catch (err) {
-        // Menangani kesalahan jika koneksi gagal
         console.error('Koneksi gagal:', err.message);
     }
 };
 
-// Mengeksport pool dan fungsi testConnection
-module.exports = { pool, testConnection };
-
-// Memanggil fungsi testConnection untuk uji koneksi saat server dijalankan
-testConnection();
+testConnection();  // Memanggil fungsi untuk menguji koneksi
