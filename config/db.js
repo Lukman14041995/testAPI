@@ -1,21 +1,23 @@
-const { Pool } = require('pg');
+const { Client } = require('pg');
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,  // Gunakan DATABASE_URL dari .env
-  ssl: {
-    rejectUnauthorized: false,  // Agar SSL diterima
-  },
+// Inisialisasi koneksi ke database PostgreSQL menggunakan DATABASE_URL dari environment variable
+const client = new Client({
+  connectionString: process.env.DATABASE_URL
 });
 
+// Fungsi untuk menguji koneksi
 const testConnection = async () => {
   try {
-    const res = await pool.query('SELECT NOW()');  // Mengecek waktu di database
-    console.log('Koneksi berhasil! Waktu di server database:', res.rows[0].now);
+    await client.connect(); // Connect to PostgreSQL
+    console.log("Connected to the database");
   } catch (err) {
-    console.error('Koneksi gagal:', err.message);
+    console.error('Connection error', err.stack);
+  } finally {
+    await client.end(); // Menutup koneksi setelah selesai
   }
 };
 
-testConnection();  // Uji koneksi ketika aplikasi dimulai
+// Panggil testConnection ketika aplikasi dimulai
+testConnection();
 
-module.exports = { pool, testConnection };
+module.exports = { testConnection };
